@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inventory - Items</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/items">Inventory App</a>
+    <div class="ms-auto">
+      <a class="btn btn-outline-light" href="/items/new">Add Item</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+
+  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Items</h5>
+
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Qty</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th style="width: 180px;">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="item : ${items}">
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.sku}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.location}"></td>
+            <td th:text="${item.price}"></td>
+            <td>
+              <a class="btn btn-sm btn-primary" th:href="@{/items/{id}/edit(id=${item.id})}">Edit</a>
+
+              <form th:action="@{/items/{id}/delete(id=${item.id})}" method="post" class="d-inline"
+                    onsubmit="return confirm('Delete this item?');">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+
+          <tr th:if="${#lists.isEmpty(items)}">
+            <td colspan="6" class="text-center text-muted py-4">No items yet. Click “Add Item”.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
