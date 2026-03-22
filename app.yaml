@@ -1,0 +1,2 @@
+runtime: java17
+entrypoint: java -jar target/inventoryapp-0.0.1-SNAPSHOT.jar
