@@ -1,1 +1,1 @@
-web: java -jar inventoryapp-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/inventoryapp-0.0.1-SNAPSHOT.jar
